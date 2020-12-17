@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <script>
+    const electron = require("electron");
+    const ipcRenderer = electron.ipcRenderer;
+    ipcRenderer.on("cpu", (event, data) => {
+      document.getElementById("cpu").innerHTML = data.toFixed(2);
+    });
+    ipcRenderer.on("mem", (event, data) => {
+      document.getElementById("mem").innerHTML = data.toFixed(2);
+    });
+    ipcRenderer.on("total-mem", (event, data) => {
+      document.getElementById("total-mem").innerHTML = Math.round(data);
+    });
+    ipcRenderer.on("platform", (event, data) => {
+      document.getElementById("platform").innerHTML = data;
+    });
+  </script>
+    
+  <head>
+    <meta charset="UTF-8">
+    <title>Izhykov_IPZ-216_CPU_Monitor</title>
+    <link rel="stylesheet" href="index.css">
+  </head>
+  <body>
+    <div class="box">
+      <span class="label"> CPU %  </span>
+      <span id="cpu"> - </span>
+    </div>
+    <div class="box">
+      <span class="label">Свободная память (%) </span>
+      <span id="mem"> - </span>
+    </div>
+    <div class="box">
+      <span class="label">Всего оперативки (GB) </span>
+      <span id="total-mem"> - </span>
+    </div>
+    <div class="box">
+      <span class="label">Платформа </span>
+      <span id="platform"> - </span>
+    </div>
+  </body>
+</html>
