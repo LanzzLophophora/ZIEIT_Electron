@@ -1,52 +1,22 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
-const os  = require('os-utils');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
   app.quit();
 }
 
-let interval;
 
 const createWindow = () => {
-   // Create the browser window.
+  // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 1366,
     height: 768,
-    icon: __dirname + "/zieit.jpg",
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      enableRemoteModule: true
     }
   });
-  // and load the index.html of the app.
-    mainWindow.loadFile(path.join(__dirname, "index.html"));
-    mainWindow.webContents.on("devtools-opened", () => {
-      mainWindow.webContents.closeDevTools();
-    });
-      
-
-  // os.cpuUsage(function(v) {
-  //   console.log("CPU Usage (%): " + v * 100);
-  //   mainWindow.webContents.send("cpu", v * 100);
-  //   console.log("Mem Usage (%): " + os.freememPercentage() * 100);
-  //   mainWindow.webContents.send("mem", os.freememPercentage() * 100);
-  //   console.log("Total Mem (GB): " + os.totalmem() / 1024);
-  //   mainWindow.webContents.send("total-mem", os.totalmem() / 1024);
-  //   console.log("Platform: " + os.platform() );
-  //   mainWindow.webContents.send("platform", os.platform());
-  // });
-
-  interval = setInterval(() => {
-    os.cpuUsage(function(v) {
-      if ( mainWindow ) {
-        mainWindow.webContents.send("cpu", v * 100);
-        mainWindow.webContents.send("mem", os.freememPercentage() * 100);
-        mainWindow.webContents.send("total-mem", os.totalmem() / 1024);
-        mainWindow.webContents.send("platform", os.platform());
-      }
-    });
-  }, 2000);
 
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
@@ -64,15 +34,10 @@ app.on('ready', createWindow);
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
 app.on('window-all-closed', () => {
-  clearInterval( interval );
   if (process.platform !== 'darwin') {
     app.quit();
   }
 });
-
-app.on('will-quit', () => {
-  clearInterval( interval );
-})
 
 app.on('activate', () => {
   // On OS X it's common to re-create a window in the app when the
