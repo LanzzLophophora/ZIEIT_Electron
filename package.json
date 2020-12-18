@@ -5,12 +5,7 @@
   "description": "My Electron application for lr1",
   "main": "src/index.js",
   "scripts": {
-    "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make",
-    "publish": "electron-forge publish",
-    "lint": "echo \"No linting configured\"",
-    "build-installer": "electron-builder"
+    "start": "http-server -c-1"
   },
   "build": {
     "appId": "my-app",
@@ -28,7 +23,14 @@
       "allowToChangeInstallationDirectory": true
     }
   },
-  "keywords": [],
+  "keywords": [
+    "pwa",
+    "progressive",
+    "web",
+    "app",
+    "complete",
+    "tutorial"
+  ],
   "author": {
     "name": "Anton Izhykov",
     "email": "antonizhykov@gmail.com"
@@ -61,17 +63,7 @@
       ]
     }
   },
-  "dependencies": {
-    "electron-squirrel-startup": "^1.0.0",
-    "os-utils": "^0.0.14"
-  },
   "devDependencies": {
-    "@electron-forge/cli": "^6.0.0-beta.54",
-    "@electron-forge/maker-deb": "^6.0.0-beta.54",
-    "@electron-forge/maker-rpm": "^6.0.0-beta.54",
-    "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
-    "@electron-forge/maker-zip": "^6.0.0-beta.54",
-    "electron": "11.1.0",
-    "electron-builder": "^22.9.1"
+    "http-server": "^0.12.3"
   }
 }
